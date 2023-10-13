@@ -1,6 +1,7 @@
 package structures;
 
 import static java.lang.reflect.Array.newInstance;
+import java.util.ArrayList;
 
 /**
  * A basic implementation of Associative Arrays with keys of type K
@@ -183,17 +184,27 @@ public class AssociativeArray<K, V> {
     throw new KeyNotFoundException();
   } // find(K)
 
-  @SuppressWarnings({"unchecked"})
-  public K[] keys(){
-    K[] ret = (K[]) new Object[this.size];
+    /**
+   * returns first non-null element
+   * @return
+   */
+  K firstKey(){
+    for (int i = 0; i < pairs.length; i++) {
+      if(pairs[i] == null) continue;
+      else return pairs[i].key;
+    }
+    return null;
+  }
+
+  public String[] keys(){
+    String[] ret = new String[this.size];
     int n = 0; //element captured
     
     for (int i = 0; i < pairs.length; i++) {
       if(pairs[i] == null) continue;
-      ret[n] = pairs[i].key;
+      ret[n] = pairs[i].key.toString();
       n++;
     }
-
     return ret;
   }
 } // class AssociativeArray
