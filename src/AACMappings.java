@@ -17,7 +17,7 @@ public class AACMappings {
   }
 
   public void add(String imageLoc, String Text){
-
+    
   }
 
   /**
@@ -47,7 +47,7 @@ public class AACMappings {
   }
 
   public boolean isCategory(String imageLoc){
-    
+    return false; //stub
   }
 
   public void reset(){
@@ -57,6 +57,6 @@ public class AACMappings {
   }
 
   public void writeToFile(String filename){
-    
+
   }
 }
