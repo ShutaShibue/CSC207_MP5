@@ -89,7 +89,7 @@ public class AACMappings {
   }
 
   public boolean isCategory(String imageLoc){
-    return aa.hasKey(imageLoc); //stub
+    return aa.hasKey(imageLoc);
   }
 
   public void reset(){
@@ -99,6 +99,20 @@ public class AACMappings {
   }
 
   public void writeToFile(String filename){
+    try {
+      PrintWriter pen = new PrintWriter(new File("test.txt"));
 
+      for (String category : aa.keys()) {
+        if(category == "") continue;
+        AACCategory cat = aa.get(category);
+        pen.write(category + " " + cat.name + "\n");
+
+        for (String locString : cat.getImages()) {
+          pen.write(">" + locString + " " + cat.getText(locString) + "\n");
+        }
+      }
+      pen.close();
+    } catch (Exception e) {
+    }
   }
 }

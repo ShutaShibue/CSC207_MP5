@@ -1,7 +1,6 @@
 package structures;
 
 import static java.lang.reflect.Array.newInstance;
-import java.util.ArrayList;
 
 /**
  * A basic implementation of Associative Arrays with keys of type K
