@@ -1,5 +1,5 @@
-import java.io.File;  // Import the File class
-import java.io.FileNotFoundException;  // Import this class to handle errors
+import java.io.File; // Import the File class
+import java.io.FileNotFoundException; // Import this class to handle errors
 import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.Scanner; // Import the Scanner class to read text files
@@ -8,13 +8,13 @@ import structures.AssociativeArray;
 import structures.KeyNotFoundException;
 
 public class AACMappings {
- 
+
   String fileName;
-  AssociativeArray<String,AACCategory> aa;
+  AssociativeArray<String, AACCategory> aa;
   AACCategory topAacCategory;
   AACCategory currenCategory;
 
-  public AACMappings(String filename){
+  public AACMappings(String filename) {
     fileName = filename;
     aa = new AssociativeArray<>();
 
@@ -30,14 +30,14 @@ public class AACMappings {
         String data = myReader.nextLine();
         String[] datas = data.split(" ");
         // Category
-        if(!data.startsWith(">")){
+        if (!data.startsWith(">")) {
           currenCategory = new AACCategory(datas[1]);
           topAacCategory.aa.set(datas[0], datas[1]);
           aa.set(datas[0], currenCategory);
 
-        }
-        else{
-          currenCategory.aa.set(datas[0].replace(">", ""), String.join(" ",Arrays.copyOfRange(datas, 1, datas.length)));
+        } else {
+          currenCategory.aa.set(datas[0].replace(">", ""),
+              String.join(" ", Arrays.copyOfRange(datas, 1, datas.length)));
         }
 
       }
@@ -47,36 +47,38 @@ public class AACMappings {
       System.out.println("An error occurred.");
       e.printStackTrace();
     }
-  }
+  } // constructor AACMappings(String)
 
-  public void add(String imageLoc, String Text){
+  public void add(String imageLoc, String Text) {
     currenCategory.aa.set(imageLoc, Text);
-  }
+  } // add(String, String)
 
   /**
    * Gets the current category
+   * 
    * @return
    */
-  public String getCurrentCategory()
-  {
+  public String getCurrentCategory() {
     return currenCategory.name;
-  }
+  } // getCurrentCategory
 
   /**
    * Provides an array of all the images in the current category
+   * 
    * @return
    */
-  public String[] getImageLocs(){
+  public String[] getImageLocs() {
     return currenCategory.getImages();
-  }
+  } // getImageLocs
 
   /**
    * Given the image location selected, it determines the associated text with the image.
+   * 
    * @param imageLoc
    * @return
    */
-  public String getText(String imageLoc){
-    if(isCategory(imageLoc)){
+  public String getText(String imageLoc) {
+    if (isCategory(imageLoc)) {
       try {
         AACCategory cat = aa.get(imageLoc);
         currenCategory = cat;
@@ -84,26 +86,28 @@ public class AACMappings {
       } catch (KeyNotFoundException e) {
         throw new ElementNotFoundException("Image was not found");
       }
-    }
-    else return currenCategory.getText(imageLoc);
-  }
+    } else
+      return currenCategory.getText(imageLoc);
+  } // getText(String)
 
-  public boolean isCategory(String imageLoc){
+  public boolean isCategory(String imageLoc) {
     return aa.hasKey(imageLoc);
   }
 
-  public void reset(){
+  public void reset() {
     try {
       currenCategory = aa.get("");
-    } catch (KeyNotFoundException e) {}
-  }
+    } catch (KeyNotFoundException e) {
+    }
+  } // reset()
 
-  public void writeToFile(String filename){
+  public void writeToFile(String filename) {
     try {
       PrintWriter pen = new PrintWriter(new File("test.txt"));
 
       for (String category : aa.keys()) {
-        if(category == "") continue;
+        if (category == "")
+          continue;
         AACCategory cat = aa.get(category);
         pen.write(category + " " + cat.name + "\n");
 
@@ -114,5 +118,5 @@ public class AACMappings {
       pen.close();
     } catch (Exception e) {
     }
-  }
-}
+  } // writeToFile(String)
+} // class AACMappings

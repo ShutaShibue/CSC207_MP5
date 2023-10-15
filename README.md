@@ -2,11 +2,13 @@
 
 ## Name
 
-Shuta Shibue
+Shuta Shibue, Sam R, Catie Baker
 
 ## Contents
 
-STUB
+This project implements text to speach function to support people with disabilities. There is a frontend that shows picture, and speaks the content when the picture is clicked. It can also make a group of picture using AACCategory.  
+AACMappings keeps track of all AACCategories using Associative Array which was brought from past Mini-project.  
+AACCategory holds relationship between image and texts to talk.
 
 ## Resources
 

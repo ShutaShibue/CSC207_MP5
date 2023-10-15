@@ -3,9 +3,8 @@ package structures;
 import static java.lang.reflect.Array.newInstance;
 
 /**
- * A basic implementation of Associative Arrays with keys of type K
- * and values of type V. Associative Arrays store key/value pairs
- * and permit you to look up values by key.
+ * A basic implementation of Associative Arrays with keys of type K and values of type V.
+ * Associative Arrays store key/value pairs and permit you to look up values by key.
  *
  * @author Shuta Shibue
  * @author Samuel A. Rebelsky
@@ -41,11 +40,10 @@ public class AssociativeArray<K, V> {
   /**
    * Create a new, empty associative array.
    */
-  @SuppressWarnings({ "unchecked" })
+  @SuppressWarnings({"unchecked"})
   public AssociativeArray() {
     // Creating new arrays is sometimes a PITN.
-    this.pairs = (KVPair<K, V>[]) newInstance((new KVPair<K, V>()).getClass(),
-        DEFAULT_CAPACITY);
+    this.pairs = (KVPair<K, V>[]) newInstance((new KVPair<K, V>()).getClass(), DEFAULT_CAPACITY);
     this.size = 0;
   } // AssociativeArray()
 
@@ -59,7 +57,8 @@ public class AssociativeArray<K, V> {
   public AssociativeArray<K, V> clone() {
     AssociativeArray<K, V> arr = new AssociativeArray<>();
     for (int i = 0; i < pairs.length; i++) {
-      if(pairs[i] == null) continue;
+      if (pairs[i] == null)
+        continue;
       arr.set(pairs[i].key, pairs[i].value);
     }
     return arr;
@@ -71,9 +70,11 @@ public class AssociativeArray<K, V> {
   public String toString() {
     String str = "{";
     for (int i = 0; i < pairs.length; i++) {
-      if(pairs[i] == null) continue;
+      if (pairs[i] == null)
+        continue;
       str += (" " + pairs[i].key + ": " + pairs[i].value);
-      if(i != size - 1) str += ",";
+      if (i != size - 1)
+        str += ",";
     }
     str += " }";
 
@@ -86,19 +87,18 @@ public class AssociativeArray<K, V> {
   // +----------------+
 
   /**
-   * Set the value associated with key to value. Future calls to
-   * get(key) will return value.
+   * Set the value associated with key to value. Future calls to get(key) will return value.
    */
   public void set(K key, V value) {
-    //if key is null, throw error. Value being null is fine.
+    // if key is null, throw error. Value being null is fine.
     try {
       // If the key already exists, size is same
       int index = find(key);
       pairs[index] = new KVPair<K, V>(key, value);
     } catch (Exception e) {
-      //find null space, set it and increment size
+      // find null space, set it and increment size
       for (int i = 0; i < pairs.length; i++) {
-        if(pairs[i] == null){
+        if (pairs[i] == null) {
           size++;
           pairs[i] = new KVPair<K, V>(key, value);
           return;
@@ -106,7 +106,7 @@ public class AssociativeArray<K, V> {
       }
       // If there is no space
       expand();
-      pairs[size+1] = new KVPair<K, V>(key, value);
+      pairs[size + 1] = new KVPair<K, V>(key, value);
       size++;
     }
   } // set(K,V)
@@ -114,9 +114,7 @@ public class AssociativeArray<K, V> {
   /**
    * Get the value associated with key.
    *
-   * @throws KeyNotFoundException
-   *                              when the key does not appear in the associative
-   *                              array.
+   * @throws KeyNotFoundException when the key does not appear in the associative array.
    */
   public V get(K key) throws KeyNotFoundException {
     return pairs[find(key)].value;
@@ -126,26 +124,23 @@ public class AssociativeArray<K, V> {
    * Determine if key appears in the associative array.
    */
   public boolean hasKey(K key) {
-    try{
+    try {
       find(key);
       return true;
-    }
-    catch(Exception e){
+    } catch (Exception e) {
       return false;
     }
   } // hasKey(K)
 
   /**
-   * Remove the key/value pair associated with a key. Future calls
-   * to get(key) will throw an exception. If the key does not appear
-   * in the associative array, does nothing.
+   * Remove the key/value pair associated with a key. Future calls to get(key) will throw an
+   * exception. If the key does not appear in the associative array, does nothing.
    */
   public void remove(K key) {
-     try{
+    try {
       pairs[find(key)] = null;
-      size --;
-    }
-    catch(Exception e){
+      size--;
+    } catch (Exception e) {
       return;
     }
   } // remove(K)
@@ -169,38 +164,44 @@ public class AssociativeArray<K, V> {
   } // expand()
 
   /**
-   * Find the index of the first entry in `pairs` that contains key.
-   * If no such entry is found, throws an exception.
+   * Find the index of the first entry in `pairs` that contains key. If no such entry is found,
+   * throws an exception.
    */
   public int find(K key) throws KeyNotFoundException {
     for (int i = 0; i < pairs.length; i++) {
-      if(pairs[i] == null) continue;
-      if(pairs[i].key == null) {
-        if(key == null) return i; //null can't be compared using Object.equals(), so separated it.
-      }
-      else if(pairs[i].key.equals(key)) return i;
+      if (pairs[i] == null)
+        continue;
+      if (pairs[i].key == null) {
+        if (key == null)
+          return i; // null can't be compared using Object.equals(), so separated it.
+      } else if (pairs[i].key.equals(key))
+        return i;
     }
     throw new KeyNotFoundException();
   } // find(K)
 
-    /**
+  /**
    * returns first non-null element
+   * 
    * @return
    */
-  K firstKey(){
+  K firstKey() {
     for (int i = 0; i < pairs.length; i++) {
-      if(pairs[i] == null) continue;
-      else return pairs[i].key;
+      if (pairs[i] == null)
+        continue;
+      else
+        return pairs[i].key;
     }
     return null;
-  }
+  } //firstKey()
 
-  public String[] keys(){
+  public String[] keys() {
     String[] ret = new String[this.size];
-    int n = 0; //element captured
-    
+    int n = 0; // element captured
+
     for (int i = 0; i < pairs.length; i++) {
-      if(pairs[i] == null) continue;
+      if (pairs[i] == null)
+        continue;
       ret[n] = pairs[i].key.toString();
       n++;
     }
