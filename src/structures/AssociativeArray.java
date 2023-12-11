@@ -193,7 +193,7 @@ public class AssociativeArray<K, V> {
         return pairs[i].key;
     }
     return null;
-  } //firstKey()
+  } // firstKey()
 
   public String[] keys() {
     String[] ret = new String[this.size];

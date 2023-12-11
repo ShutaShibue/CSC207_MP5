@@ -17,7 +17,7 @@ public class AACCategory {
   public AACCategory(String _name) {
     name = _name;
     aa = new AssociativeArray<String, String>();
-  }//constructor AACCategory(String)
+  }// constructor AACCategory(String)
 
   // +------------------+--------------------------------------------
   // | Standard methods |
